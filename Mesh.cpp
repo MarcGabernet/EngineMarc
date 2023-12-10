@@ -52,13 +52,11 @@ void Mesh::Load(const tinygltf::Model model, const tinygltf::Mesh srcMesh, const
 		if (stride == 0)
 		{
 			stride = sizeof(float) * 3;
-			LOG("3");
 		}
 		for (size_t i = 0; i < posAcc.count; ++i)
 		{
 			ptr[i] = *reinterpret_cast<const float3*>(bufferPos);
 			bufferPos += stride;
-			LOG("%f, %f, %f", ptr[i].x, ptr[i].y, ptr[i].z);
 		}
 
 		glUnmapBuffer(GL_ARRAY_BUFFER);
@@ -83,13 +81,11 @@ void Mesh::Load(const tinygltf::Model model, const tinygltf::Mesh srcMesh, const
 		if (stride == 0)
 		{
 			stride = sizeof(float) * 2;
-			//LOG("2");
 		}
 		for (size_t i = 0; i < texAcc.count; ++i)
 		{
 			ptr[i] = *reinterpret_cast<const float2*>(bufferTex);
 			bufferTex += stride;
-			//LOG("%f, %f", ptr[i].x, ptr[i].y);
 		}
 		glUnmapBuffer(GL_ARRAY_BUFFER);
 	}
@@ -117,7 +113,6 @@ void Mesh::LoadEBO(const tinygltf::Model& model, const tinygltf::Mesh& mesh, con
 			for (uint32_t i = 0; i < indexCount; ++i)
 			{
 				ptr[i] = bufferInd[i];
-				LOG("%d", ptr[i]);
 			}
 		}
 		else if (indAcc.componentType == TINYGLTF_PARAMETER_TYPE_UNSIGNED_SHORT)
@@ -126,7 +121,6 @@ void Mesh::LoadEBO(const tinygltf::Model& model, const tinygltf::Mesh& mesh, con
 			for (uint16_t i = 0; i < indexCount; ++i)
 			{
 				ptr[i] = bufferInd[i];
-				LOG("%d", ptr[i]);
 			}
 		}
 		else if (indAcc.componentType == TINYGLTF_PARAMETER_TYPE_UNSIGNED_BYTE)
@@ -135,7 +129,6 @@ void Mesh::LoadEBO(const tinygltf::Model& model, const tinygltf::Mesh& mesh, con
 			for (uint8_t i = 0; i < indexCount; ++i)
 			{
 				ptr[i] = bufferInd[i];
-				LOG("%d", ptr[i]);
 			}
 		}
 		glUnmapBuffer(GL_ELEMENT_ARRAY_BUFFER);

@@ -154,8 +154,10 @@
     <ClCompile Include="ModuleTexture.cpp">
       <Filter>Modules\Texture</Filter>
     </ClCompile>
-    <ClCompile Include="Model.cpp" />
     <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="Model.cpp">
+      <Filter>Modules\Model</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ImGui\imconfig.h">
@@ -404,7 +406,6 @@
     <ClInclude Include="ModuleTexture.h">
       <Filter>Modules\Texture</Filter>
     </ClInclude>
-    <ClInclude Include="Model.h" />
     <ClInclude Include="tiny_gltf.h">
       <Filter>TinyGLTF</Filter>
     </ClInclude>
@@ -412,6 +413,9 @@
       <Filter>TinyGLTF</Filter>
     </ClInclude>
     <ClInclude Include="Mesh.h" />
+    <ClInclude Include="Model.h">
+      <Filter>Modules\Model</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Modules">
@@ -473,6 +477,9 @@
     </Filter>
     <Filter Include="Modules\Render">
       <UniqueIdentifier>{17eee4b8-a614-4f66-bbaf-926961d7906e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Modules\Model">
+      <UniqueIdentifier>{769694db-3813-48c0-b9ed-8ef7bb107748}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

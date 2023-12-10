@@ -5,6 +5,7 @@
 #include "ModuleRender.h"
 #include "Model.h"
 
+
 ModuleRender::ModuleRender()
 {
 }
@@ -19,7 +20,7 @@ bool ModuleRender::Init()
 {
 	//vbo_id = BaboonVbo();
 	model = new Model;
-	model->Load("Avocado.gltf");
+	model->Load("./Models/BakerHouse.gltf");
 
 	return true;
 }
@@ -50,7 +51,7 @@ bool ModuleRender::CleanUp()
 	LOG("Destroying program");
 
 	glDeleteBuffers(1, &vbo_id);
-	model->DeleteBuffers();
+	model->CleanUp();
 
 	return true;
 }
@@ -105,4 +106,20 @@ void ModuleRender::RenderBaboon(unsigned vbo, unsigned program)
 
 	// 1 triangle to draw = 3 vertices
 	glDrawArrays(GL_TRIANGLES, 0, 6);
+}
+
+void ModuleRender::ChangeModel(std::string fileName) 
+{
+	int last = fileName.find_last_of('\\');
+	std::string file = "";
+	int len = fileName.length();
+	for (int i = last + 1; i < fileName.length(); i++)
+	{
+		file += fileName[i];
+	}
+	model->CleanUp();
+
+	std::string path = "./Models/" + file;
+	const char* filePath = path.c_str();
+	model->Load(filePath);
 }

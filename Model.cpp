@@ -11,6 +11,7 @@
 
 Model::Model()
 {
+	ChangeTransform(position, rotation, scale);
 }
 
 // Destructor
@@ -50,7 +51,7 @@ void Model::LoadMaterials(const tinygltf::Model& srcModel)
 		{
 			const tinygltf::Texture& texture = srcModel.textures[srcMaterial.pbrMetallicRoughness.baseColorTexture.index];
 			const tinygltf::Image& image = srcModel.images[texture.source];
-			App->GetTexture()->LoadFile(image.uri);
+			App->GetTexture()->LoadFile("./Models/"+image.uri);
 			textureId = App->GetTexture()->GenerateTexture();
 		}
 		textures.push_back(textureId);
@@ -67,11 +68,22 @@ void Model::Draw()
 
 }
 
-void Model::DeleteBuffers()
+bool Model::CleanUp()
 {
 
 	for (const auto& mesh : meshes)
 	{
 		mesh->DeleteBuffers();
 	}
+	meshes.clear();
+	textures.clear();
+
+	return true;
+}
+
+void Model::ChangeTransform(float3 position, float rotation, float3 scale)
+{
+	model = float4x4::FromTRS(position,
+		float4x4::RotateZ(rotation),
+		scale);
 }

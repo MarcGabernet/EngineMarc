@@ -1,9 +1,10 @@
-#include "Application.h"
+﻿#include "Application.h"
 #include "ModuleInput.h"
 #include "ModuleOpenGL.h"
 #include "ModuleCamera.h"
 #include "ModuleEditor.h"
 #include "ModuleWindow.h"
+#include "ModuleRender.h"
 
 
 ModuleInput::ModuleInput()
@@ -62,6 +63,11 @@ update_status ModuleInput::Update()
 				break;
 			case SDL_MOUSEMOTION:
 				App->GetCamera()->MouseMovement(sdlEvent.motion);
+				break;
+			case SDL_DROPFILE: 
+				char* filePath = sdlEvent.drop.file;
+				App->GetExercise()->ChangeModel(filePath);
+				SDL_free(filePath);
 				break;
         }
         ImGui_ImplSDL2_ProcessEvent(&sdlEvent);

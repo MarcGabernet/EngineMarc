@@ -3,8 +3,9 @@
 
 #include "Module.h"
 #include "Globals.h"
+#include "Model.h"
 
-class Model;
+#include <string>
 
 class ModuleRender : public Module
 {
@@ -17,6 +18,10 @@ public:
 	update_status Update();
 	update_status PostUpdate();
 	bool CleanUp();
+
+	Model* GetModel(){ return model; }
+
+	void ChangeModel(std::string fileName);
 
 	unsigned vbo_id = 0;
 
