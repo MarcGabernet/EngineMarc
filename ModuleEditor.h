@@ -20,18 +20,20 @@ public:
 	update_status PostUpdate();
 	bool CleanUp();
 
-	void DebugWindowSize(int widht, int height);
+	void ModelWindow();
 
 	void NewFrame();
 	void RenderAndUpdate();
 
 private:
 	void InitialWindow();
-	void Camera_Window();
+	void CameraWindow();
 
+	//Windows
 	bool show_demo_window = false;
 	bool done = false;
-	bool show_camera_window = true;
+	bool show_camera_window = false;
+	bool show_model_window = false;
 
 };
 

@@ -21,6 +21,14 @@ Model::~Model()
 
 void Model::Load(const char* assetFileName)
 {
+	std::string name = assetFileName;
+	int last = name.find_last_of('/');
+	fileName = "";
+	for (int i = last + 1; i < name.length() - 5; i++)
+	{
+		fileName += name[i];
+	}
+
 	tinygltf::TinyGLTF gltfContext;
 	tinygltf::Model sourceModel;
 	std::string error, warning;
@@ -79,6 +87,27 @@ bool Model::CleanUp()
 	textures.clear();
 
 	return true;
+}
+
+void Model::ChangePosition(float3 position)
+{
+	model = float4x4::FromTRS(position,
+		float4x4::RotateZ(rotation),
+		scale);
+}
+
+void Model::ChangeRotation(float rotation)
+{
+	model = float4x4::FromTRS(position,
+		float4x4::RotateZ(rotation),
+		scale);
+}
+
+void Model::ChangeScale(float3 scale)
+{
+	model = float4x4::FromTRS(position,
+		float4x4::RotateZ(rotation),
+		scale);
 }
 
 void Model::ChangeTransform(float3 position, float rotation, float3 scale)

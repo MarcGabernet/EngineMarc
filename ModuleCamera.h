@@ -41,7 +41,6 @@ public:
 
 	//Matrices
 	float4x4 GetProjectionMatrix() const { return proj; }
-	float4x4 GetModelMatrix() const { return model; }
 	float4x4 GetViewMatrix() const { return view; }
 
 	//Field of view
@@ -75,7 +74,6 @@ private:
 
 	//Matrices
 	float4x4 proj = float4x4::identity;
-	float4x4 model = float4x4::identity * float4x4(float3x3::identity * 50);
 	float4x4 view = float4x4::identity;
 
 	//ROTATION MATRIX: Functions used to simplify the construction of the general Rotation Matrix

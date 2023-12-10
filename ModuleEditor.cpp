@@ -3,6 +3,7 @@
 #include "ModuleWindow.h"
 #include "ModuleOpenGL.h"
 #include "ModuleCamera.h"
+#include "ModuleRender.h"
 
 #include "MathBuildConfig.h"
 #include "MathGeoLib.h"
@@ -56,9 +57,10 @@ update_status ModuleEditor::Update()
 	InitialWindow();
 
 	if (show_camera_window)
-	{
-		Camera_Window();
-	}
+		CameraWindow();
+
+	if (show_model_window)
+		ModelWindow();
 
 	RenderAndUpdate();
 	
@@ -114,12 +116,15 @@ void ModuleEditor::InitialWindow()
 	ImGui::Checkbox("Camera Properties Window", &show_camera_window);
 
 	ImGui::Text(" ");
+	ImGui::Checkbox("Model Properties Window", &show_model_window);
+
+	ImGui::Text(" ");
 	ImGuiIO& io = ImGui::GetIO(); (void)io;
 	ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
 
 	ImGui::End();
 }
-void ModuleEditor::Camera_Window()
+void ModuleEditor::CameraWindow()
 {
 	//Target
 	static float target[3] = {App->GetCamera()->target.x,  App->GetCamera()->target.y, App->GetCamera()->target.z};
@@ -194,12 +199,36 @@ void ModuleEditor::Camera_Window()
 
 	ImGui::End();
 }
-void ModuleEditor::DebugWindowSize(int widht, int height)
+void ModuleEditor::ModelWindow()
 {
-	ImGui::Begin("Window size Debugger");
+	ImGui::Begin("Model Properties", &show_camera_window);
 
-	ImGui::Text("W: , %d", widht);
-	ImGui::Text("H: , %d", height);
+	ImGui::SeparatorText("Name");
+	ImGui::Text(App->GetExercise()->GetModel()->fileName.c_str());
+
+	ImGui::SeparatorText("Transform Editor");
+	//Scale
+	static float3 pos_ = App->GetExercise()->GetModel()->GetPosition();
+	static float pos[3] = { pos_.x, pos_.y, pos_.z };
+	ImGui::InputFloat3("Position", pos);
+
+	pos_ = float3(pos[0], pos[1], pos[2]);
+
+	//Rotation
+	static float rot = App->GetExercise()->GetModel()->GetRotation();
+	ImGui::SliderFloat("Rotation", &rot, 0.0f, 2*math::pi);
+
+	//Scale
+	static float3 scale_ = App->GetExercise()->GetModel()->GetScale();
+	static float scale[3] = {scale_.x, scale_.y, scale_.z};
+	ImGui::InputFloat3("Scale", scale);
+	
+	scale_ = float3(scale[0], scale[1], scale[2]);
+
+
+	App->GetExercise()->GetModel()->ChangeTransform(pos_, rot, scale_);
+
+
 
 	ImGui::End();
 }

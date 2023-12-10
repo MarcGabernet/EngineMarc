@@ -87,7 +87,7 @@ void ModuleRender::RenderBaboon(unsigned vbo, unsigned program)
 {
 	glUseProgram(program);
 
-	glUniformMatrix4fv(2, 1, GL_TRUE, &App->GetCamera()->GetModelMatrix()[0][0]);
+	glUniformMatrix4fv(2, 1, GL_TRUE, &App->GetExercise()->GetModel()->GetModelMatrix()[0][0]);
 	glUniformMatrix4fv(3, 1, GL_TRUE, &App->GetCamera()->GetViewMatrix()[0][0]);
 	glUniformMatrix4fv(4, 1, GL_TRUE, &App->GetCamera()->GetProjectionMatrix()[0][0]);
 

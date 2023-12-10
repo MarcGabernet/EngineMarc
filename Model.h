@@ -5,6 +5,7 @@
 #include "Globals.h"
 
 #include <vector>
+#include <string>
 
 #include "MathBuildConfig.h"
 #include "MathGeoLib.h"
@@ -31,24 +32,30 @@ public:
 	void Load(const char* assetFileName);
 	void Draw();
 
-	void ChangeTransform(float3 position, float rotation, float3 scale);
+	void ChangePosition(float3 position);
+	void ChangeRotation(float rotation);
+	void ChangeScale(float3 scale);
+	void  ChangeTransform(float3 position, float rotation, float3 scale);
 
 	const float3 GetPosition() { return position; }
 	const float GetRotation() { return rotation; }
 	const float3 GetScale() { return scale; }
 
+	float4x4 GetModelMatrix() { return model; }
+
 	void SetPosition(float3 pos) { position = pos; }
 	void SetPosition(float rot) { rotation = rot; }
 	void SetScale(float3 scl) { scale = scl; }
 
+	std::string fileName;
 
 private:
 	void LoadMaterials(const tinygltf::Model& srcModel);
 
 	float4x4 model;
-	float3 position;
-	float rotation;
-	float3 scale;
+	float3 position = float3::zero;
+	float rotation = 0;
+	float3 scale = float3::one;
 
 	std::vector<Mesh*> meshes;
 	std::vector<unsigned> textures;
