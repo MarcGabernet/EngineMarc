@@ -91,6 +91,8 @@ void Mesh::Load(const tinygltf::Model model, const tinygltf::Mesh srcMesh, const
 	}
 	LoadEBO(model, srcMesh, primitive);
 	CreateVAO();
+
+	meshName = srcMesh.name;
 }
 
 void Mesh::LoadEBO(const tinygltf::Model& model, const tinygltf::Mesh& mesh, const tinygltf::Primitive& primitive)

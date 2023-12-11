@@ -45,6 +45,9 @@ void Model::Load(const char* assetFileName)
 			Mesh* mesh = new Mesh;
 			mesh->Load(sourceModel, srcMesh, primitive);
 			meshes.push_back(mesh);
+
+			vertexCount += mesh->GetVertexCount();
+			indexCount += mesh->GetIndexCount();
 		}
 	}
 	LoadMaterials(sourceModel);

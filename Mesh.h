@@ -4,6 +4,7 @@
 #include "Module.h"
 #include "Globals.h"
 #include <vector>
+#include <string>
 
 namespace tinygltf 
 {
@@ -29,8 +30,19 @@ public:
 
 	void  DeleteBuffers();
 
+	//Name
+	std::string GetFileName() { return meshName; }
+
+	//Properties
+	int GetVertexCount() { return vertexCount; }
+	int GetIndexCount() { return indexCount; }
+
 private:
 
+	//Mesh Name
+	std::string meshName;
+
+	//Properties
 	int vertexCount;
 	int indexCount;
 	int materialIndex;

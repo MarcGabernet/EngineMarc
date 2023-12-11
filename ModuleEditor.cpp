@@ -4,6 +4,7 @@
 #include "ModuleOpenGL.h"
 #include "ModuleCamera.h"
 #include "ModuleRender.h"
+#include "Mesh.h"
 
 #include "MathBuildConfig.h"
 #include "MathGeoLib.h"
@@ -201,28 +202,61 @@ void ModuleEditor::CameraWindow()
 }
 void ModuleEditor::ModelWindow()
 {
+	//Properties
 	ImGui::Begin("Model Properties", &show_camera_window);
 
-	ImGui::SeparatorText("Name");
-	ImGui::Text(App->GetExercise()->GetModel()->fileName.c_str());
+	ImGui::SeparatorText("Properties");
+	ImGui::Text("Name:"); ImGui::SameLine();
+	ImGui::Text(App->GetExercise()->GetModel()->GetFileName().c_str());
+	ImGui::Text(" ");
 
+	ImGui::Text("Number of verticies: "); ImGui::SameLine();
+	ImGui::Text(std::to_string(App->GetExercise()->GetModel()->GetVertexCount()).c_str());
+	ImGui::Text("Number of indices: "); ImGui::SameLine();
+	ImGui::Text(std::to_string(App->GetExercise()->GetModel()->GetIndexCount()).c_str());
+	ImGui::Text("Number of meshes: "); ImGui::SameLine();
+	const int numberMeshes = App->GetExercise()->GetModel()->GetMeshes().size();
+	ImGui::Text(std::to_string(numberMeshes).c_str());
+	if (numberMeshes != 1) 
+	{
+		ImGui::Text(" ");
+		for (int i = 0; i < numberMeshes; i++) 
+		{
+			ImGui::Text("Mesh"); ImGui::SameLine(); ImGui::Text(std::to_string(i+1).c_str()); ImGui::SameLine();
+			ImGui::Text(":"); ImGui::SameLine();
+			Mesh* mesh = App->GetExercise()->GetModel()->GetMeshes()[i];
+			ImGui::Text(mesh->GetFileName().c_str());
+			ImGui::Text("Number of verticies: "); ImGui::SameLine();
+			ImGui::Text(std::to_string(mesh->GetVertexCount()).c_str());
+			ImGui::Text("Number of indices: "); ImGui::SameLine();
+			ImGui::Text(std::to_string(mesh->GetIndexCount()).c_str());
+			ImGui::Text(" ");
+		}
+	}
+
+
+	ImGui::Text(" ");
+
+	//Transform
 	ImGui::SeparatorText("Transform Editor");
-	//Scale
+
+	//Position
+	ImGui::Text(" ");
 	static float3 pos_ = App->GetExercise()->GetModel()->GetPosition();
 	static float pos[3] = { pos_.x, pos_.y, pos_.z };
 	ImGui::InputFloat3("Position", pos);
-
 	pos_ = float3(pos[0], pos[1], pos[2]);
 
 	//Rotation
+	ImGui::Text(" ");
 	static float rot = App->GetExercise()->GetModel()->GetRotation();
 	ImGui::SliderFloat("Rotation", &rot, 0.0f, 2*math::pi);
 
 	//Scale
+	ImGui::Text(" ");
 	static float3 scale_ = App->GetExercise()->GetModel()->GetScale();
 	static float scale[3] = {scale_.x, scale_.y, scale_.z};
 	ImGui::InputFloat3("Scale", scale);
-	
 	scale_ = float3(scale[0], scale[1], scale[2]);
 
 

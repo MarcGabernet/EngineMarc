@@ -111,15 +111,15 @@ void ModuleRender::RenderBaboon(unsigned vbo, unsigned program)
 void ModuleRender::ChangeModel(std::string fileName) 
 {
 	int last = fileName.find_last_of('\\');
-	std::string file = "";
+	std::string name = "";
 	int len = fileName.length();
 	for (int i = last + 1; i < fileName.length() -5; i++)
 	{
-		file += fileName[i];
+		name += fileName[i];
 	}
 	model->CleanUp();
 
-	std::string path = "./Models/" + file + "/" + file + ".gltf";
+	std::string path = "./Models/" + name + "/" + name + ".gltf";
 	const char* filePath = path.c_str();
 	model->Load(filePath);
 }
