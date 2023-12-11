@@ -59,7 +59,7 @@ void Model::LoadMaterials(const tinygltf::Model& srcModel)
 		{
 			const tinygltf::Texture& texture = srcModel.textures[srcMaterial.pbrMetallicRoughness.baseColorTexture.index];
 			const tinygltf::Image& image = srcModel.images[texture.source];
-			App->GetTexture()->LoadFile("./Models/"+image.uri);
+			App->GetTexture()->LoadFile("./Models/"+ fileName + "/" + image.uri);
 			textureId = App->GetTexture()->GenerateTexture();
 		}
 		textures.push_back(textureId);

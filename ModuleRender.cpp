@@ -20,7 +20,7 @@ bool ModuleRender::Init()
 {
 	//vbo_id = BaboonVbo();
 	model = new Model;
-	model->Load("./Models/BakerHouse.gltf");
+	model->Load("./Models/BakerHouse/BakerHouse.gltf");
 
 	return true;
 }
@@ -113,13 +113,13 @@ void ModuleRender::ChangeModel(std::string fileName)
 	int last = fileName.find_last_of('\\');
 	std::string file = "";
 	int len = fileName.length();
-	for (int i = last + 1; i < fileName.length(); i++)
+	for (int i = last + 1; i < fileName.length() -5; i++)
 	{
 		file += fileName[i];
 	}
 	model->CleanUp();
 
-	std::string path = "./Models/" + file;
+	std::string path = "./Models/" + file + "/" + file + ".gltf";
 	const char* filePath = path.c_str();
 	model->Load(filePath);
 }
