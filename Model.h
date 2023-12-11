@@ -50,7 +50,7 @@ public:
 
 	//Properties
 	int GetVertexCount() { return vertexCount; }
-	int GetIndexCount() { return indexCount; }
+	int GetTriangleCount() { return indexCount/3; }
 
 	//File Name
 	const std::string GetFileName() { return fileName; }

@@ -21,6 +21,8 @@ bool ModuleRender::Init()
 	//vbo_id = BaboonVbo();
 	model = new Model;
 	model->Load("./Models/BakerHouse/BakerHouse.gltf");
+	model->SetScale(float3::one * 100);
+	model->ChangeScale(model->GetScale());
 
 	return true;
 }

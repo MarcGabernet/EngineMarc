@@ -30,6 +30,7 @@ bool ModuleEditor::Init()
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
 	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;         // Enable Docking
 	io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;       // Enable Multi-Viewport / Platform Windows
+	io.ConfigFlags |= ImGuiWindowFlags_MenuBar;
 
 	ImGui::StyleColorsDark();
 
@@ -49,6 +50,18 @@ update_status ModuleEditor::PreUpdate()
 update_status ModuleEditor::Update()
 {
 	NewFrame();
+	if (ImGui::DockSpaceOverViewport(0, ImGuiDockNodeFlags_PassthruCentralNode)) 
+	{
+		/*if (ImGui::BeginMenuBar()) {
+			if (ImGui::BeginMenu("Menu"))
+			{
+				ImGui::EndMenu();
+			}
+			if (ImGui::BeginMenu("Examples"))
+			{
+			}
+		}*/
+	}
 
     // 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
     if (show_demo_window)
@@ -210,10 +223,12 @@ void ModuleEditor::ModelWindow()
 	ImGui::Text(App->GetExercise()->GetModel()->GetFileName().c_str());
 	ImGui::Text(" ");
 
+	//Vertices and indices
 	ImGui::Text("Number of verticies: "); ImGui::SameLine();
 	ImGui::Text(std::to_string(App->GetExercise()->GetModel()->GetVertexCount()).c_str());
-	ImGui::Text("Number of indices: "); ImGui::SameLine();
-	ImGui::Text(std::to_string(App->GetExercise()->GetModel()->GetIndexCount()).c_str());
+	ImGui::Text("Number of triangles: "); ImGui::SameLine();
+	ImGui::Text(std::to_string(App->GetExercise()->GetModel()->GetTriangleCount()).c_str());
+	//Meshes
 	ImGui::Text("Number of meshes: "); ImGui::SameLine();
 	const int numberMeshes = App->GetExercise()->GetModel()->GetMeshes().size();
 	ImGui::Text(std::to_string(numberMeshes).c_str());
@@ -228,8 +243,8 @@ void ModuleEditor::ModelWindow()
 			ImGui::Text(mesh->GetFileName().c_str());
 			ImGui::Text("Number of verticies: "); ImGui::SameLine();
 			ImGui::Text(std::to_string(mesh->GetVertexCount()).c_str());
-			ImGui::Text("Number of indices: "); ImGui::SameLine();
-			ImGui::Text(std::to_string(mesh->GetIndexCount()).c_str());
+			ImGui::Text("Number of triangles: "); ImGui::SameLine();
+			ImGui::Text(std::to_string(mesh->GetIndexCount()/3).c_str());
 			ImGui::Text(" ");
 		}
 	}
