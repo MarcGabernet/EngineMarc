@@ -14,3 +14,8 @@ the scale of the model can be changed. The rotation and the position can also be
 There is also a window with the camera properties that can be modified.
 
 In this assignment I clearly didn't have the time to finish everything I wanted to do and I will continue to improve this engine.
+Also, I had a problem realted with the gitignore of the first repository created for this project which made impossible pushing 
+the commits to GitHub from a certain point onwards and that is why this one's first commit is so big.
+The link for the first repository is : https://github.com/MarcGabernet/Engine (the firsts commits are avalible)
+
+The link for the repository of this project is: https://github.com/MarcGabernet/EngineMarc
